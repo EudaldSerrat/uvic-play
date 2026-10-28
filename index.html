@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UVic Play</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: cartell esportiu — franges vermelles a tota amplada, wordmark condensat amb fletxes ">>>", graella 2x2 de jocs */
+:root {
+  --red: #E62238;
+  --red-deep: #BC1528;
+  --ink: #141112;
+  --paper: #FFFFFF;
+  --mist: #F6F1F2;
+  --line: #E7DCDE;
+  --muted: #6B5F62;
+  --on-red: #FFFFFF;
+  --shot: #FFFFFF;
+  --display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #F7F2F3; --paper: #151112; --mist: #1E1819; --line: #34292B; --muted: #B5A7AA;
+    --red: #E62238; --red-deep: #BC1528; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #F7F2F3; --paper: #151112; --mist: #1E1819; --line: #34292B; --muted: #B5A7AA;
+  --red: #E62238; --red-deep: #BC1528; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+img { max-width: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+.wrap {
+  max-width: 1160px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Barra superior */
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.uvic { font-family: var(--display); font-weight: 800; font-size: 26px; letter-spacing: .02em; line-height: 1; display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.uvic small { font-family: var(--body); font-weight: 500; font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.top nav { display: flex; gap: 20px; font-size: 15px; font-weight: 600; }
+.top nav a { text-decoration: none; }
+.top nav a:hover { color: var(--red); }
+
+/* Hero */
+.hero { background: var(--red); color: var(--on-red); overflow: hidden; position: relative; }
+.hero .wrap { padding-block: 56px 64px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: end; }
+.eyebrow { font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; }
+.wordmark { font-family: var(--display); font-weight: 800; text-transform: uppercase; line-height: .86; letter-spacing: -.01em; font-size: clamp(64px, 12vw, 148px); margin: 14px 0 0; }
+.wordmark span { display: block; }
+.wordmark .row1 { display: flex; align-items: center; gap: .12em; }
+.chev { display: inline-flex; gap: .02em; }
+.chev svg { height: .62em; width: auto; fill: currentColor; }
+.rule { height: 6px; background: var(--on-red); width: 100%; margin-top: 22px; }
+.hero-copy { font-size: 19px; max-width: 34ch; }
+.hero-copy p { margin: 0 0 22px; }
+.hero-copy strong { font-weight: 600; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+  font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; font-size: 18px;
+  padding: 12px 20px; border: 2px solid currentColor; transition: background .15s, color .15s;
+}
+.hero .btn { background: var(--on-red); color: var(--red-deep); border-color: var(--on-red); }
+.hero .btn:hover { background: transparent; color: var(--on-red); }
+
+/* Pictogrames que corren */
+.ticker { background: var(--ink); color: var(--paper); overflow: hidden; }
+.ticker-track { display: flex; gap: 40px; padding-block: 12px; width: max-content; animation: run 38s linear infinite; font-family: var(--display); font-weight: 800; font-size: 20px; text-transform: uppercase; letter-spacing: .08em; }
+.ticker-track span { display: inline-flex; align-items: center; gap: 40px; white-space: nowrap; }
+.ticker-track i { color: var(--red); font-style: normal; }
+@keyframes run { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
+
+/* Qui som */
+.about .wrap { padding-block: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 48px; }
+h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(38px, 5.5vw, 60px); line-height: .95; margin: 0; text-wrap: balance; }
+h2 em { color: var(--red); font-style: italic; }
+.about p { margin: 0 0 16px; max-width: 62ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; padding: 0; list-style: none; }
+.facts li { border: 1.5px solid var(--ink); padding: 6px 12px; font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
+
+/* Jocs */
+.games { background: var(--mist); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.games .wrap { padding-block: 72px; }
+.games-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+.games-head p { margin: 0; max-width: 42ch; color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+
+.game { background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
+.shot {
+  aspect-ratio: 16 / 9; max-width: 100%; background: var(--shot);
+  border-bottom: 1px solid var(--line); position: relative;
+  display: grid; place-items: center; color: #B9AEB0; overflow: hidden;
+}
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot .ph { display: grid; justify-items: center; gap: 6px; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+.shot .ph svg { width: 34px; height: 34px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+.tag {
+  position: absolute; top: 0; left: 0; background: var(--red); color: var(--on-red);
+  font-family: var(--display); font-weight: 800; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 12px;
+}
+.thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); }
+.thumbs div { aspect-ratio: 16 / 9; background: var(--shot); }
+.game-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.game h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 36px; line-height: 1; margin: 0; letter-spacing: .01em; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; color: var(--muted); font-weight: 500; }
+.meta b { color: var(--ink); font-weight: 600; }
+.game p { margin: 0; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 8px; }
+.game .btn { font-size: 16px; padding: 9px 16px; }
+.btn.primary { background: var(--red); color: var(--on-red); border-color: var(--red); }
+.btn.primary:hover { background: var(--red-deep); border-color: var(--red-deep); }
+.btn.ghost { color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: var(--paper); }
+
+footer { background: var(--ink); color: var(--paper); }
+footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; }
+footer b { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: .04em; text-transform: uppercase; }
+
+@media (max-width: 860px) {
+  .hero .wrap, .about .wrap { grid-template-columns: minmax(0, 1fr); }
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .top nav { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="uvic" href="#">UVIC PLAY <small>Grau en Multimèdia</small></a>
+    <nav aria-label="Seccions">
+      <a href="#projecte">El projecte</a>
+      <a href="#jocs">Els jocs</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">En col·laboració amb els UVic Sport Games</div>
+      <h1 class="wordmark" aria-label="UVic Play">
+        <span class="row1">UVIC
+          <span class="chev" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><path d="M0 0h18l22 30-22 30H0l22-30z"/></svg>
+            <svg viewBox="0 0 40 60"><path d="M0 0h18l22 30-22 30H0l22-30z"/></svg>
+            <svg viewBox="0 0 40 60"><path d="M0 0h18l22 30-22 30H0l22-30z"/></svg>
+          </span>
+        </span>
+        <span>Play</span>
+      </h1>
+      <div class="rule" aria-hidden="true"></div>
+    </div>
+    <div class="hero-copy">
+      <p>Som estudiants de <strong>Multimèdia</strong> de la UVic i hem dissenyat <strong>4 videojocs</strong> per als UVic Sport Games. Quatre esports, quatre maneres de jugar.</p>
+      <a class="btn" href="#jocs">Veure les 4 propostes
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Bàsquet <i>›››</i> Escalada <i>›››</i> Tir amb arc <i>›››</i> Tennis <i>›››</i> Atletisme <i>›››</i> Vòlei <i>›››</i> Tirolina <i>›››</i> Esport adaptat <i>›››</i></span>
+    <span>Bàsquet <i>›››</i> Escalada <i>›››</i> Tir amb arc <i>›››</i> Tennis <i>›››</i> Atletisme <i>›››</i> Vòlei <i>›››</i> Tirolina <i>›››</i> Esport adaptat <i>›››</i></span>
+  </div>
+</div>
+
+<section class="about" id="projecte">
+  <div class="wrap">
+    <h2>Un projecte de <em>Multimèdia</em> per als Sport Games</h2>
+    <div>
+      <p>Els UVic Sport Games omplen el campus d'esport durant uns dies. Nosaltres hi hem volgut sumar una altra pista: la pantalla. Des de l'assignatura hem plantejat quatre propostes de joc, cadascuna inspirada en una de les disciplines de la competició.</p>
+      <p>Cada joc s'ha fet de principi a fi per l'equip: concepte, disseny visual, programació i so. A sota trobareu captures i l'enllaç per jugar a cadascun.</p>
+      <ul class="facts">
+        <li>4 propostes</li>
+        <li>Grau en Multimèdia</li>
+        <li>Curs 2026–27</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="games" id="jocs">
+  <div class="wrap">
+    <div class="games-head">
+      <h2>Les <em>4</em> propostes</h2>
+      <p>Substituïu els requadres blancs per les captures de cada joc i afegiu-hi l'enllaç per jugar.</p>
+    </div>
+
+    <div class="grid">
+      <!-- JOC 1: canvieu el src de la imatge i els href -->
+      <article class="game">
+        <div class="shot">
+          <span class="tag">Joc 01</span>
+          <div class="ph"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="10" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>Captura principal</div>
+        </div>
+        <div class="thumbs" aria-hidden="true"><div></div><div></div><div></div></div>
+        <div class="game-body">
+          <h3>Rebot Final</h3>
+          <div class="meta"><span><b>Esport:</b> Bàsquet</span><span><b>Gènere:</b> Arcade</span></div>
+          <p>Últims segons del partit i la pilota a les teves mans. Calcula l'angle i la força per encistellar abans que soni la botzina.</p>
+          <div class="links">
+            <a class="btn primary" href="#">Jugar</a>
+            <a class="btn ghost" href="#">Més info</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- JOC 2 -->
+      <article class="game">
+        <div class="shot">
+          <span class="tag">Joc 02</span>
+          <div class="ph"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="10" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>Captura principal</div>
+        </div>
+        <div class="thumbs" aria-hidden="true"><div></div><div></div><div></div></div>
+        <div class="game-body">
+          <h3>Cim Vertical</h3>
+          <div class="meta"><span><b>Esport:</b> Escalada</span><span><b>Gènere:</b> Plataformes</span></div>
+          <p>Puja la paret presa a presa sense perdre l'equilibri. Cada via és més alta i la corda no perdona les badades.</p>
+          <div class="links">
+            <a class="btn primary" href="#">Jugar</a>
+            <a class="btn ghost" href="#">Més info</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- JOC 3 -->
+      <article class="game">
+        <div class="shot">
+          <span class="tag">Joc 03</span>
+          <div class="ph"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="10" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>Captura principal</div>
+        </div>
+        <div class="thumbs" aria-hidden="true"><div></div><div></div><div></div></div>
+        <div class="game-body">
+          <h3>Fletxa Zero</h3>
+          <div class="meta"><span><b>Esport:</b> Tir amb arc</span><span><b>Gènere:</b> Precisió</span></div>
+          <p>Respira, tensa la corda i compensa el vent. Tres fletxes per ronda per acostar-te tant com puguis al centre de la diana.</p>
+          <div class="links">
+            <a class="btn primary" href="#">Jugar</a>
+            <a class="btn ghost" href="#">Més info</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- JOC 4 -->
+      <article class="game">
+        <div class="shot">
+          <span class="tag">Joc 04</span>
+          <div class="ph"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="10" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>Captura principal</div>
+        </div>
+        <div class="thumbs" aria-hidden="true"><div></div><div></div><div></div></div>
+        <div class="game-body">
+          <h3>Smash Campus</h3>
+          <div class="meta"><span><b>Esport:</b> Tennis</span><span><b>Gènere:</b> Multijugador local</span></div>
+          <p>Partits ràpids a un set entre dos jugadors al mateix teclat. Colpeja, corre a la xarxa i guanya el punt amb un bon smash.</p>
+          <div class="links">
+            <a class="btn primary" href="#">Jugar</a>
+            <a class="btn ghost" href="#">Més info</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>UVic Play</b>
+    <span>En col·laboració amb els UVic Sport Games · Grau en Multimèdia · UVic-UCC</span>
+  </div>
+</footer>
+
+</body>
+</html>
