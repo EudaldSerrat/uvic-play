@@ -1,0 +1,3 @@
+# Web estàtica: Netlify publica directament l'arrel del repositori
+[build]
+  publish = "."
