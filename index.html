@@ -116,6 +116,10 @@ h2 em { color: var(--red); font-style: italic; }
 .thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); }
 .thumbs div, .thumbs img { aspect-ratio: 16 / 9; background: var(--shot); }
 .thumbs img { width: 100%; height: auto; object-fit: cover; display: block; }
+.thumbs img { cursor: pointer; transition: opacity .15s; }
+.thumbs img:hover { opacity: .8; }
+.shot img { transition: opacity .2s; }
+.shot img.swap { opacity: 0; }
 .game-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .game h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 36px; line-height: 1; margin: 0; letter-spacing: .01em; }
 .meta { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; color: var(--muted); font-weight: 500; }
@@ -294,5 +298,30 @@ footer b { font-family: var(--display); font-weight: 800; font-size: 20px; lette
   </div>
 </footer>
 
+<script>
+// Clicar una miniatura la posa com a imatge gran (i la gran passa a la miniatura)
+document.querySelectorAll('.game').forEach(function (game) {
+  var main = game.querySelector('.shot img');
+  if (!main) return;
+  game.querySelectorAll('.thumbs img').forEach(function (thumb) {
+    thumb.tabIndex = 0;
+    thumb.setAttribute('role', 'button');
+    thumb.title = 'Veure en gran';
+    function show() {
+      var src = main.src, alt = main.alt;
+      main.classList.add('swap');
+      setTimeout(function () {
+        main.src = thumb.src; main.alt = thumb.alt;
+        thumb.src = src; thumb.alt = alt;
+        main.classList.remove('swap');
+      }, 150);
+    }
+    thumb.addEventListener('click', show);
+    thumb.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); }
+    });
+  });
+});
+</script>
 </body>
 </html>
