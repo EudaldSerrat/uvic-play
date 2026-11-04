@@ -111,11 +111,12 @@ h2 em { color: var(--red); font-style: italic; }
 .shot img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .shot .ph { display: grid; justify-items: center; gap: 6px; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
 .shot .ph svg { width: 34px; height: 34px; stroke: currentColor; fill: none; stroke-width: 1.5; }
-.thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); }
+.thumbs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); }
 .thumbs div, .thumbs img { aspect-ratio: 16 / 9; background: var(--shot); }
 .thumbs img { width: 100%; height: auto; object-fit: contain; display: block; background: var(--stage); }
 .thumbs img { cursor: pointer; transition: opacity .15s; }
 .thumbs img:hover { opacity: .8; }
+.thumbs img.active { outline: 3px solid var(--red); outline-offset: -3px; opacity: 1; }
 .shot img { transition: opacity .2s; }
 .shot img.swap { opacity: 0; }
 .game-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
@@ -213,6 +214,7 @@ footer b { font-family: var(--display); font-weight: 800; font-size: 20px; lette
           <img src="img/rotanca-portada.png" alt="Pantalla d'inici de Rotanca">
         </div>
         <div class="thumbs">
+          <img src="img/rotanca-portada.png" alt="Pantalla d'inici de Rotanca" class="active">
           <img src="img/rotanca-ronda.webp" alt="Rotanca: ronda superada amb les boles a prop del boliche">
           <img src="img/rotanca-botiga.png" alt="Rotanca: botiga de boles entre rondes">
           <img src="img/rotanca-partida.webp" alt="Rotanca: primera ronda de la partida">
@@ -234,8 +236,8 @@ footer b { font-family: var(--display); font-weight: 800; font-size: 20px; lette
           <img src="img/esgrima-duel.jpg" alt="Esgrima Antiga: duel entre l'espadatxí vermell i el blau">
         </div>
         <div class="thumbs">
+          <img src="img/esgrima-duel.jpg" alt="Esgrima Antiga: duel entre l'espadatxí vermell i el blau" class="active">
           <img src="img/esgrima-logo.jpg" alt="Logotip d'Esgrima Antiga">
-          <div aria-hidden="true"></div><div aria-hidden="true"></div>
         </div>
         <div class="game-body">
           <h3>Esgrima Antiga</h3>
@@ -254,9 +256,9 @@ footer b { font-family: var(--display); font-weight: 800; font-size: 20px; lette
           <img src="img/waterpulse-gol.webp" alt="WaterPulse: gol de l'equip local">
         </div>
         <div class="thumbs">
+          <img src="img/waterpulse-gol.webp" alt="WaterPulse: gol de l'equip local" class="active">
           <img src="img/waterpulse-partit.webp" alt="WaterPulse: atacant amb la pilota durant el partit">
           <img src="img/waterpulse-icona.webp" alt="Icona de WaterPulse">
-          <div aria-hidden="true"></div>
         </div>
         <div class="game-body">
           <h3>WaterPulse</h3>
@@ -297,20 +299,22 @@ footer b { font-family: var(--display); font-weight: 800; font-size: 20px; lette
 </footer>
 
 <script>
-// Clicar una miniatura la posa com a imatge gran (i la gran passa a la miniatura)
+// Clicar una miniatura la mostra en gran
 document.querySelectorAll('.game').forEach(function (game) {
   var main = game.querySelector('.shot img');
   if (!main) return;
-  game.querySelectorAll('.thumbs img').forEach(function (thumb) {
+  var thumbs = game.querySelectorAll('.thumbs img');
+  thumbs.forEach(function (thumb) {
     thumb.tabIndex = 0;
     thumb.setAttribute('role', 'button');
     thumb.title = 'Veure en gran';
     function show() {
-      var src = main.src, alt = main.alt;
+      if (thumb.classList.contains('active')) return;
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      thumb.classList.add('active');
       main.classList.add('swap');
       setTimeout(function () {
         main.src = thumb.src; main.alt = thumb.alt;
-        thumb.src = src; thumb.alt = alt;
         main.classList.remove('swap');
       }, 150);
     }
